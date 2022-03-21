@@ -87,7 +87,7 @@ Using the `movies_db` database, write the correct SQL queries for each of these 
     \```
 
         <!-- This code doesn't work -->
-        first_name, last_name, rating, count(*) FROM movies JOIN roles ON movies.id = roles.movie_id JOIN stars ON roles.star_id = stars.id GROUP BY first_name, last_name WHERE rating = 'G';
+         SELECT first_name, last_name, count(rating) FROM movies JOIN roles ON movies.id = roles.movie_id JOIN stars ON roles.star_id = stars.id WHERE rating = 'G' GROUP BY stars.id ORDER BY last_name, first_name;
 
     \```
 
@@ -98,7 +98,7 @@ Using the `movies_db` database, write the correct SQL queries for each of these 
     \```
 
         <!-- I don't know if this take into account duplicate names. -->
-        SELECT first_name, last_name, count(movies.id) FROM movies JOIN roles ON movies.id = roles.movie_id JOIN stars ON roles.star_id = stars.id GROUP BY First_name, last_name ORDER BY count(movies.id) DESC;
+         SELECT first_name, last_name, count(movies.id) FROM movies JOIN roles ON movies.id = roles.movie_id JOIN stars ON roles.star_id = stars.id GROUP BY stars.id ORDER BY count(movies.id) DESC;
 
     \```
 
