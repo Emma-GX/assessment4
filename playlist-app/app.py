@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, Playlist, Song, PlaylistSong
@@ -52,9 +52,28 @@ def show_playlist(playlist_id):
 def add_playlist():
     """Handle add-playlist form:
 
+    
     - if form not filled out or invalid: show form
     - if valid: add playlist to SQLA and redirect to list-of-playlists
     """
+    
+    form = PlaylistForm()
+    
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        
+        new_playlist = Playlist(name, description)
+        db.session.add(new_playlist)
+        db.session.commit()
+        flash('You Create A New Playlist!')
+        return redirect('/playlists/add')
+    
+    else:
+        return render_template('new_playlist.html', form=form)
+        
+    
+   
 
     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
