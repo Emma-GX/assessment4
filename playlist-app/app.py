@@ -12,7 +12,7 @@ if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_ECHO'] = True 
 
 connect_db(app)
 db.create_all()
@@ -22,7 +22,7 @@ app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
 # Having the Debug Toolbar show redirects explicitly is often useful;
 # however, if you want to turn it off, you can uncomment this line:
 #
-# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
@@ -51,6 +51,10 @@ def show_playlist(playlist_id):
     """Show detail on specific playlist."""
 
     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    id = Playlist.query.get_or_404(playlist_id)
+    print(id)
+    
+    return render_template("playlist.html", id=id)
 
 
 @app.route("/playlists/add", methods=["GET", "POST"])
@@ -72,7 +76,7 @@ def add_playlist():
         db.session.add(new_playlist)
         db.session.commit()
         flash('You Create A New Playlist!')
-        return redirect('/playlists/add')
+        return redirect('/')
     
     else:
         return render_template('new_playlist.html', form=form)
