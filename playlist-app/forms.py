@@ -17,7 +17,7 @@ class SongForm(FlaskForm):
 
     # Add the necessary code to use this form
     title = StringField('Title', validators=[InputRequired()])
-    artist = StringField('Artist/Artists', validators=[InputRequired])
+    artist = StringField('Artist/Artists', validators=[InputRequired()])
 
 
 # DO NOT MODIFY THIS FORM - EVERYTHING YOU NEED IS HERE
