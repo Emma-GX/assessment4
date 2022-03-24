@@ -98,6 +98,10 @@ def show_song(song_id):
     """return a specific song"""
 
     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    song = Song.query.get_or_404(song_id)
+   
+    
+    return render_template("song.html", song=song)
 
 
 @app.route("/songs/add", methods=["GET", "POST"])
@@ -108,7 +112,6 @@ def add_song():
     - if valid: add playlist to SQLA and redirect to list-of-songs
     """
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
     form = SongForm()
     
     if form.validate_on_submit():
