@@ -12,7 +12,7 @@ class Playlist(db.Model):
     def __init__(self, name, description):
         self.name = name
         self.description = description
-    
+     
     __tablename__ = 'playlists'
     
     playlist_id = db.Column(db.Integer,
@@ -28,7 +28,9 @@ class Playlist(db.Model):
                             nullable = False
                             )
     
-    songs = db.relationship('Song', backref="playlists")
+    songs = db.relationship('PlaylistSong', backref='playlists')
+    
+ 
     
 
 
@@ -36,10 +38,11 @@ class Song(db.Model):
     """Song."""
 
     # ADD THE NECESSARY CODE HERE
+    
     def __init__(self, title, artist):
         self.title = title
         self.artist = artist
-        
+    
     __tablename__ = 'songs'
     
     song_id = db.Column(db.Integer,
@@ -55,16 +58,15 @@ class Song(db.Model):
                      nullable = False
                      )
     
-    playlists = db.relationship('Playlist', backref="songs")
+    # playlists = db.relationship('Playlist')
+    
+  
 
 
 class PlaylistSong(db.Model):
     """Mapping of a playlist to a song."""
 
     # ADD THE NECESSARY CODE HERE
-    def __init__(self, playlist_id, song_id):
-        self.playlist_id = playlist_id
-        self.song_id = song_id
         
     __tablename__ = 'playlist_songs'
     
