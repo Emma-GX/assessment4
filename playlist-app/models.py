@@ -28,9 +28,12 @@ class Playlist(db.Model):
                             nullable = False
                             )
     
-    songs = db.relationship('PlaylistSong', backref='playlists')
+    songs = db.relationship('Song',
+                            secondary='playlist_songs',
+                            backref='playlists')
     
- 
+    def __repr__(self):
+        return f"<Playlist {self.name}>"
     
 
 
@@ -58,8 +61,8 @@ class Song(db.Model):
                      nullable = False
                      )
     
-    # playlists = db.relationship('Playlist')
-    
+    def __repr__(self):
+        return f"<Song {self.title} - {self.artist}>"
   
 
 
@@ -79,7 +82,7 @@ class PlaylistSong(db.Model):
                             db.ForeignKey('playlists.playlist_id'))
     
     song_id = db.Column(db.Integer,
-                            db.ForeignKey('songs.song_id'))
+                        db.ForeignKey('songs.song_id'))
     
    
     
